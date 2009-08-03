@@ -62,6 +62,7 @@ module HTTParty
 
       def setup_raw_request
         @raw_request = http_method.new(uri.request_uri)
+        @raw_request.set_form_data(options[:query]) if post? && options[:query] ## reapplying fix
         @raw_request.body = body if body
         @raw_request.initialize_http_header(options[:headers])
         @raw_request.basic_auth(username, password) if options[:basic_auth]
